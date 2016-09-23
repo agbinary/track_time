@@ -1,0 +1,19 @@
+<% provide(:title, "New Activity") %>
+
+<%= form_for @activity do |f| %>
+
+  <%= render "shared/form_errors", model: @activity %>
+
+  <div class="form-inline">
+  	<%= f.text_field :name, placeholder: 'What have you done?', class: 'form-control' %>
+    <%= f.time_select :start_time, { ignore_date: true }, class: 'form-control time_select' %>
+    -
+    <%= f.time_select :end_time, { ignore_date: true }, class: 'form-control time_select' %>
+    <%= f.date_field :date_report, value: Date.today, class: 'form-control' %>
+  </div>
+  <br>
+  <ul class="list-inline">
+    <li><%= f.submit "Save", class: 'btn btn-primary' %></li>
+    <li><%= link_to 'Back', :activities, class: 'btn btn-danger' %></li>
+  </ul>
+<% end %>

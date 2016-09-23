@@ -14,4 +14,9 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
+  def require_login
+    unless current_user
+      redirect_to :root, notice: 'You must be logged in.'
+    end
+  end
 end

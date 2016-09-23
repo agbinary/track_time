@@ -1,0 +1,35 @@
+<% provide(:title, "Activities") %>
+<%= link_to 'Add manually', :new_activity %>
+<br><br>
+<%= link_to 'Add timer', :new_timer %>
+<hr>
+
+<% if @activities.empty? %>
+  <p>There's any activity yet.</p>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+    </thead>
+    <tbody>
+      <% @activities.each do |activity| %>
+        <tr>
+          <td>
+            <% if activity.name.empty? %>
+              <%= link_to "no description", activity_path(activity) %>
+            <% else %>
+              <%= link_to activity.name, activity_path(activity) %>
+            <% end %>
+          </td>
+          <td><%= Time.at(activity.total_time).utc.strftime("%H:%M:%S") if !activity.total_time.nil? %></td>
+          <% if activity.open? %>
+            <td><%= activity.show_start_time + " - Counting..." %></td>
+            <td><%= link_to "Stop", update_status_path(activity), method: :put, class: 'btn btn-danger btn-xs' %></td>
+          <% else %>
+            <td><%= activity.show_start_time + " - " + activity.show_end_time %></td>
+            <td><%= link_to "Continue", update_status_path(activity), method: :put, class: 'btn btn-danger btn-xs' %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

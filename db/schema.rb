@@ -11,14 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923021310) do
+ActiveRecord::Schema.define(version: 20160923150541) do
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "track_type",  null: false
+    t.string   "name"
+    t.time     "start_time",  null: false
+    t.time     "end_time"
+    t.date     "date_report", null: false
+    t.integer  "total_time"
+    t.integer  "status",      null: false
+    t.integer  "user_id",     null: false
+    t.integer  "project_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "activities", ["project_id"], name: "index_activities_on_project_id"
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id"
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "uid"
-    t.string   "nickname"
-    t.string   "name"
-    t.string   "token"
-    t.string   "secret"
+    t.string   "uid",        null: false
+    t.string   "nickname",   null: false
+    t.string   "name",       null: false
+    t.string   "token",      null: false
+    t.string   "secret",     null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

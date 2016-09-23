@@ -1,0 +1,27 @@
+<% provide(:title, "Activity Info") %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= label_tag :name, 'Name', class: 'control-label' %>
+      <%= text_field_tag :name, @activity.name, class: 'form-control', readonly: true %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :start_time, 'Start time', class: 'control-label' %>
+      <%= text_field_tag :start_time, @activity.show_start_time, class: 'form-control time_select', readonly: true %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :end_time, 'End time', class: 'control-label' %>
+      <%= text_field_tag :end_time, @activity.show_end_time, class: 'form-control time_select', readonly: true %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :date_report, 'Report Date', class: 'control-label' %>
+      <%= text_field_tag :date_report, @activity.date_report, class: 'form-control time_select', readonly: true %>
+    </div>
+  </div>
+</div>
+<br>
+<ul class="list-inline">
+  <li><%= link_to 'Edit', edit_activity_path(@activity), class: 'btn btn-primary' %></li>
+  <li><%= link_to 'Eliminar', activity_path(@activity), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-danger' %></li>
+  <li><%= link_to 'Back', :activities, class: 'btn btn-default' %></li>
+</ul>
