@@ -1,14 +1,37 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>TrackTime</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en-us">
+  <head>
+    <title><%= yield(:title) %> | Track Time</title>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"></li>
+            <li role="presentation"></li>
+            <% if logged_in? %>
+            <% else %>
+              <li role="presentation"><%= link_to 'Sign in with Twitter', '/auth/twitter' %></li>
+            <% end %>
+          </ul>
+        </nav>
+        <h3 class="text-muted"><%= link_to 'Track Time', :root %></h3>
+      </div>
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
 
-<%= yield %>
+      <%= yield %>
 
-</body>
+    </div>
+  </body>
 </html>
