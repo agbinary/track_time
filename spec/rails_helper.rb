@@ -65,3 +65,24 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+OmniAuth.config.test_mode = true
+
+def login_user(user)
+  authenticate_with_twitter(user)
+  session[:user_id] = user.id
+end
+
+def authenticate_with_twitter(user)
+  OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+    :uid => '12345',
+    :info => {
+      :nickname => user.nickname,
+      :name => user.name
+    },
+    :credentials => {
+      :token => user.token,
+      :secret => user.secret
+    }
+  })
+end

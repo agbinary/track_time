@@ -7,7 +7,6 @@ RSpec.describe Activity, type: :model do
 
   describe "ActiveModel validations" do
     it { should validate_presence_of(:start_time) }
-    it { should validate_presence_of(:end_time) }
     it { should validate_presence_of(:date_report) }
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:track_type) }
