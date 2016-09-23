@@ -1,5 +1,18 @@
 class SessionsController < ApplicationController
   def create
-    redirect_to :root
+    @user = User.find_or_create_from_auth_hash(auth_hash)
+    session[:user_id] = @user.id
+    redirect_to :root, notice: 'Signed in!'
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to :root, notice: 'Logged out!'
+  end
+
+  protected
+
+  def auth_hash
+    request.env['omniauth.auth']
   end
 end
