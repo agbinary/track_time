@@ -36,4 +36,7 @@ group :test do
   gem 'launchy', '~> 2.4'
 end
 
-gem 'rails_12factor', group: :production
+group :production do
+  gem 'pg', '~> 0.19.0'
+  gem 'rails_12factor', '~> 0.0.3'
+end
