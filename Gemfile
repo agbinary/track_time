@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.3.0'
 
 # Application
 gem 'rails', '4.2.5.1'
@@ -34,3 +35,5 @@ group :test do
   gem 'database_cleaner', '~> 1.5'
   gem 'launchy', '~> 2.4'
 end
+
+gem 'rails_12factor', group: :production
