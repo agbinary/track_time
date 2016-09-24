@@ -3,7 +3,8 @@ class ActivitiesController < ApplicationController
   before_action :find_activity, only: [:show, :edit, :update, :update_status, :destroy]
 
   def index
-    @activities = Activity.all
+    @activities = Activity.all.order(date_report: :desc, created_at: :desc)
+    @activities_by_day = @activities.group_by { |activity| activity.date_report }
   end
 
   def show
@@ -38,7 +39,7 @@ class ActivitiesController < ApplicationController
     @activity.track_type = 'manual'
     if @activity.save
       @activity.update(total_time: @activity.calculate_total_time)
-      redirect_to :activities, notice: 'Saved!'
+      redirect_to :activities, notice: 'Activity Saved!'
     else
       render :new
     end
@@ -50,7 +51,7 @@ class ActivitiesController < ApplicationController
   def update
     @activity.assign_attributes(activity_attributes)
     if @activity.save
-      flash[:success] = 'Updated!'
+      flash[:success] = 'Activity Updated!'
       redirect_to activity_path(@activity)
     else
       render :edit
@@ -62,7 +63,7 @@ class ActivitiesController < ApplicationController
       @activity.update(status: 'close', end_time: Time.now)
       @activity.update(total_time: @activity.calculate_total_time)
     else
-      Activity.create(track_type: 'timer', status: 'open', name: @activity.name, start_time: Time.now, date_report: Date.today, user: current_user)
+      Activity.create(track_type: 'timer', status: 'open', name: @activity.name, start_time: Time.now, date_report: Date.today, user: current_user, project: @activity.project)
     end
     redirect_to :activities
   end
@@ -75,7 +76,7 @@ class ActivitiesController < ApplicationController
   private
 
   def activity_attributes
-    params.require(:activity).permit(:name, :start_time, :end_time, :date_report)
+    params.require(:activity).permit(:name, :start_time, :end_time, :date_report, :project_id)
   end
 
   def find_activity

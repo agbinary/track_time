@@ -1,0 +1,21 @@
+<% provide(:title, "Project Info") %>
+<%= link_to 'See all projects', :projects %>
+<hr>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= label_tag :name, 'Name', class: 'control-label' %>
+      <%= text_field_tag :name, @project.name, class: 'form-control', readonly: true %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :total_time_project, 'Total Time Project', class: 'control-label' %>
+      <%= text_field_tag :total_time_project, Time.at(@project.total_time_project).utc.strftime("%H:%M:%S"), class: 'form-control', readonly: true %>
+    </div>
+  </div>
+</div>
+<br>
+<ul class="list-inline">
+  <li><%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-primary' %></li>
+  <li><%= link_to 'Eliminar', project_path(@project), method: :delete, data: {confirm: "Are you sure? All your activities will be removed too."}, class: 'btn btn-danger' %></li>
+  <li><%= link_to 'Back', :activities, class: 'btn btn-default' %></li>
+</ul>

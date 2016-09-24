@@ -3,33 +3,45 @@
 <br><br>
 <%= link_to 'Add timer', :new_timer %>
 <hr>
+<%= link_to 'Add project', :new_project %>
+<hr>
 
 <% if @activities.empty? %>
   <p>There's any activity yet.</p>
 <% else %>
-  <table class="table table-striped">
-    <thead>
-    </thead>
-    <tbody>
-      <% @activities.each do |activity| %>
-        <tr>
-          <td>
-            <% if activity.name.empty? %>
-              <%= link_to "no description", activity_path(activity) %>
+  <% @activities_by_day.each do |day, activities| %>
+    <h2><%= day.strftime("%A, %d %h %Y") %></h2>
+    <table class="table">
+      <thead>
+      </thead>
+      <% for activity in activities %>
+        <tbody>
+          <tr>
+            <td width="30%">
+              <% if activity.name.empty? %>
+                <%= link_to "no description", activity_path(activity) %>
+              <% else %>
+                <%= link_to activity.name, activity_path(activity) %>
+              <% end %>
+            </td>
+            <td width="30%">
+              <% if activity.project.nil? %>
+                -
+              <% else %>
+                <%= link_to activity.project.name, project_path(activity.project) %>
+              <% end %>
+            </td>
+            <td><%= Time.at(activity.total_time).utc.strftime("%H:%M:%S") if !activity.total_time.nil? %></td>
+            <% if activity.open? %>
+              <td><%= activity.show_start_time + " - Counting..." %></td>
+              <td><%= link_to "Stop", update_status_path(activity), method: :put, class: 'btn btn-danger btn-xs' %></td>
             <% else %>
-              <%= link_to activity.name, activity_path(activity) %>
+              <td><%= activity.show_start_time + " - " + activity.show_end_time %></td>
+              <td><%= link_to "Continue", update_status_path(activity), method: :put, class: 'btn btn-danger btn-xs' %></td>
             <% end %>
-          </td>
-          <td><%= Time.at(activity.total_time).utc.strftime("%H:%M:%S") if !activity.total_time.nil? %></td>
-          <% if activity.open? %>
-            <td><%= activity.show_start_time + " - Counting..." %></td>
-            <td><%= link_to "Stop", update_status_path(activity), method: :put, class: 'btn btn-danger btn-xs' %></td>
-          <% else %>
-            <td><%= activity.show_start_time + " - " + activity.show_end_time %></td>
-            <td><%= link_to "Continue", update_status_path(activity), method: :put, class: 'btn btn-danger btn-xs' %></td>
-          <% end %>
-        </tr>
+          </tr>
+        </tbody>
       <% end %>
-    </tbody>
-  </table>
+    </table>
+  <% end %>
 <% end %>

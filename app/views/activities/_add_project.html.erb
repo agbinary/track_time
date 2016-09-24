@@ -1,0 +1,2 @@
+<%= f.label :project_id, 'Do you want to add a project?', class: 'control-label' %>
+<%= f.collection_select :project_id, Project.all, :id, :name, { prompt: 'Project' }, class: 'form-control input-project' %>

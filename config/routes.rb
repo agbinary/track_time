@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   post 'activities/create_timer', as: :create_timer
   put 'activities/:id/status' => 'activities#update_status', as: :update_status
   resources :activities
+  resources :projects
 end

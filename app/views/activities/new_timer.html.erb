@@ -6,6 +6,8 @@
   	<%= f.text_field :name, placeholder: 'What are you working on?', class: 'form-control' %>
   </div>
   <br>
+  <%= render 'add_project', f: f %>
+  <br><br>
   <ul class="list-inline">
     <li><%= f.submit "Go", class: 'btn btn-primary' %></li>
     <li><%= link_to 'Back', :activities, class: 'btn btn-danger' %></li>

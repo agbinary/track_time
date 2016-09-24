@@ -6,12 +6,24 @@
       <%= text_field_tag :name, @activity.name, class: 'form-control', readonly: true %>
     </div>
     <div class="form-group">
+      <%= label_tag :project_id, 'Project', class: 'control-label' %>
+      <% if !@activity.project.nil? %>
+        <%= text_field_tag :project_id, @activity.project.name, class: 'form-control', readonly: true %>
+      <% else %>
+        <%= text_field_tag :project_id, "", class: 'form-control', readonly: true %>
+      <% end %>
+    </div>
+    <div class="form-group">
       <%= label_tag :start_time, 'Start time', class: 'control-label' %>
       <%= text_field_tag :start_time, @activity.show_start_time, class: 'form-control time_select', readonly: true %>
     </div>
     <div class="form-group">
       <%= label_tag :end_time, 'End time', class: 'control-label' %>
-      <%= text_field_tag :end_time, @activity.show_end_time, class: 'form-control time_select', readonly: true %>
+      <% if @activity.open? %>
+        <%= text_field_tag :end_time, "", class: 'form-control time_select', readonly: true %>
+      <% else %>
+        <%= text_field_tag :end_time, @activity.show_end_time, class: 'form-control time_select', readonly: true %>
+      <% end %>
     </div>
     <div class="form-group">
       <%= label_tag :date_report, 'Report Date', class: 'control-label' %>

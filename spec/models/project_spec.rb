@@ -12,5 +12,6 @@ RSpec.describe Project, type: :model do
 
   describe "ActiveRecord associations" do
     it { should belong_to(:user) }
+    it { should have_many(:activities) }
   end
 end

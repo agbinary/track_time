@@ -1,0 +1,13 @@
+<%= form_for @project do |f| %>
+
+  <%= render "shared/form_errors", model: @project %>
+
+  <div class="form-inline">
+  	<%= f.text_field :name, placeholder: 'Name your Project', class: 'form-control' %>
+  </div>
+  <br>
+  <ul class="list-inline">
+    <li><%= f.submit "Save", class: 'btn btn-primary' %></li>
+    <li><%= link_to 'Back', :activities, class: 'btn btn-danger' %></li>
+  </ul>
+<% end %>

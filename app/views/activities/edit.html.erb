@@ -11,12 +11,20 @@
         <%= f.text_field :name, placeholder: 'Update your activity name', class: 'form-control' %>
       </div>
       <div class="form-group">
+        <%= f.label :project_id, 'Project', class: 'control-label' %>
+        <%= f.collection_select :project_id, Project.all, :id, :name, { prompt: 'Project' }, class: 'form-control' %>
+      </div>
+      <div class="form-group">
         <%= label_tag :start_time, 'Start time', class: 'control-label' %>
         <%= text_field_tag :start_time, @activity.show_start_time, class: 'form-control time_select', readonly: true %>
       </div>
       <div class="form-group">
         <%= label_tag :end_time, 'End time', class: 'control-label' %>
-        <%= text_field_tag :end_time, @activity.show_end_time, class: 'form-control time_select', readonly: true %>
+        <% if @activity.open? %>
+          <%= text_field_tag :end_time, "", class: 'form-control time_select', readonly: true %>
+        <% else %>
+          <%= text_field_tag :end_time, @activity.show_end_time, class: 'form-control time_select', readonly: true %>
+        <% end %>
       </div>
       <div class="form-group">
         <%= label_tag :date_report, 'Report Date', class: 'control-label' %>

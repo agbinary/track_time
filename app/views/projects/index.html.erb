@@ -1,0 +1,19 @@
+<% provide(:title, "Projects") %>
+
+<table class="table">
+  <thead>
+    <th>Project Name</th>
+    <th>Total Time</th>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td><%= Time.at(project.total_time_project).utc.strftime("%H:%M:%S") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<ul class="list-inline">
+  <li><%= link_to 'Back', :activities, class: 'btn btn-default' %></li>
+</ul>
