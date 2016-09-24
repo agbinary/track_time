@@ -3,7 +3,6 @@ ruby '2.3.0'
 
 # Application
 gem 'rails', '4.2.5.1'
-gem 'sqlite3'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
@@ -24,6 +23,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
   gem 'factory_girl_rails', '~> 4.7'
